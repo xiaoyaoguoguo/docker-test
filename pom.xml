@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.14</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.pandapp</groupId>
+    <artifactId>docker-test</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>docker-test</name>
+    <description>docker-test</description>
+    <properties>
+        <java.version>8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>docker-test</finalName>
+        <directory>target</directory>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId> <!-- 插件的 groupId，一般为插件开发者的 groupId -->
+                <artifactId>docker-maven-plugin</artifactId> <!-- 插件的 artifactId，用于 Maven 中标识插件 -->
+                <version>1.2.2</version> <!-- 插件的版本 -->
+                <configuration>
+                    <serverId>docker.io</serverId>
+                    <imageName>registry.cn-shanghai.aliyuncs.com/omni-dev/${project.build.finalName}:v1</imageName> <!-- 镜像名称，一般格式为 [仓库名/][项目名]：[标签]，若不指定标签，默认为 latest -->
+                    <dockerDirectory>docker</dockerDirectory> <!-- Dockerfile 文件的路径 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath> <!-- 镜像中资源的路径 -->
+                            <directory>${project.build.directory}</directory> <!-- 本地资源的路径 -->
+                            <include>${project.build.finalName}.jar</include> <!-- 需要添加到镜像的资源 -->
+                        </resource>
+                    </resources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build-image</id> <!-- 任务 ID -->
+                        <phase>package</phase> <!-- 在 Maven 的哪个阶段执行此任务，此处为 package 阶段 -->
+                        <goals>
+                            <goal>build</goal> <!-- 执行构建 Docker 镜像的目标 -->
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>push-image</id> <!-- 任务 ID -->
+                        <phase>deploy</phase> <!-- 在 Maven 的 deploy 阶段执行此任务 -->
+                        <goals>
+                            <goal>push</goal> <!-- 执行推送 Docker 镜像的目标 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
