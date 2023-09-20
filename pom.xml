@@ -38,39 +38,39 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <plugin>
-                <groupId>com.spotify</groupId> <!-- 插件的 groupId，一般为插件开发者的 groupId -->
-                <artifactId>docker-maven-plugin</artifactId> <!-- 插件的 artifactId，用于 Maven 中标识插件 -->
-                <version>1.2.2</version> <!-- 插件的版本 -->
+            <!--<plugin>
+                <groupId>com.spotify</groupId> &lt;!&ndash; 插件的 groupId，一般为插件开发者的 groupId &ndash;&gt;
+                <artifactId>docker-maven-plugin</artifactId> &lt;!&ndash; 插件的 artifactId，用于 Maven 中标识插件 &ndash;&gt;
+                <version>1.2.2</version> &lt;!&ndash; 插件的版本 &ndash;&gt;
                 <configuration>
                     <serverId>docker.io</serverId>
-                    <imageName>registry.cn-shanghai.aliyuncs.com/omni-dev/${project.build.finalName}:v1</imageName> <!-- 镜像名称，一般格式为 [仓库名/][项目名]：[标签]，若不指定标签，默认为 latest -->
-                    <dockerDirectory>docker</dockerDirectory> <!-- Dockerfile 文件的路径 -->
+                    <imageName>registry.cn-shanghai.aliyuncs.com/omni-dev/${project.build.finalName}:v1</imageName> &lt;!&ndash; 镜像名称，一般格式为 [仓库名/][项目名]：[标签]，若不指定标签，默认为 latest &ndash;&gt;
+                    <dockerDirectory>docker</dockerDirectory> &lt;!&ndash; Dockerfile 文件的路径 &ndash;&gt;
                     <resources>
                         <resource>
-                            <targetPath>/</targetPath> <!-- 镜像中资源的路径 -->
-                            <directory>${project.build.directory}</directory> <!-- 本地资源的路径 -->
-                            <include>${project.build.finalName}.jar</include> <!-- 需要添加到镜像的资源 -->
+                            <targetPath>/</targetPath> &lt;!&ndash; 镜像中资源的路径 &ndash;&gt;
+                            <directory>${project.build.directory}</directory> &lt;!&ndash; 本地资源的路径 &ndash;&gt;
+                            <include>${project.build.finalName}.jar</include> &lt;!&ndash; 需要添加到镜像的资源 &ndash;&gt;
                         </resource>
                     </resources>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>build-image</id> <!-- 任务 ID -->
-                        <phase>package</phase> <!-- 在 Maven 的哪个阶段执行此任务，此处为 package 阶段 -->
+                        <id>build-image</id> &lt;!&ndash; 任务 ID &ndash;&gt;
+                        <phase>package</phase> &lt;!&ndash; 在 Maven 的哪个阶段执行此任务，此处为 package 阶段 &ndash;&gt;
                         <goals>
-                            <goal>build</goal> <!-- 执行构建 Docker 镜像的目标 -->
+                            <goal>build</goal> &lt;!&ndash; 执行构建 Docker 镜像的目标 &ndash;&gt;
                         </goals>
                     </execution>
                     <execution>
-                        <id>push-image</id> <!-- 任务 ID -->
-                        <phase>deploy</phase> <!-- 在 Maven 的 deploy 阶段执行此任务 -->
+                        <id>push-image</id> &lt;!&ndash; 任务 ID &ndash;&gt;
+                        <phase>deploy</phase> &lt;!&ndash; 在 Maven 的 deploy 阶段执行此任务 &ndash;&gt;
                         <goals>
-                            <goal>push</goal> <!-- 执行推送 Docker 镜像的目标 -->
+                            <goal>push</goal> &lt;!&ndash; 执行推送 Docker 镜像的目标 &ndash;&gt;
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
